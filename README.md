@@ -35,54 +35,43 @@ This project was built to apply real-world DevOps practices like auto-scaling, s
 | Security | Secrets, ConfigMaps, NetworkPolicy, RBAC |
 
 ---
-
-## 📁 Project Structure
+📁 Project Structure
 banking-kubernetes-platform/
 ├── app/
-│ ├── banking-api/
-│ │ ├── Dockerfile
-│ │ ├── app.js
-│ │ └── package.json
-│ └── banking-dashboard/
-│ ├── Dockerfile
-│ ├── index.html
-│ └── nginx.conf
+│   ├── banking-api/
+│   │   ├── Dockerfile
+│   │   ├── app.js
+│   │   └── package.json
+│   └── banking-dashboard/
+│       ├── Dockerfile
+│       ├── index.html
+│       └── nginx.conf
 ├── k8s/
-│ ├── 00-namespace.yaml
-│ ├── 01-configmap.yaml
-│ ├── 02-secret.yaml
-│ ├── 03-postgres-statefulset.yaml
-│ ├── 04-api-deployment.yaml
-│ ├── 05-dashboard-deployment.yaml
-│ ├── 06-services.yaml
-│ ├── 07-ingress.yaml
-│ ├── 08-hpa-vpa.yaml
-│ ├── 09-rbac.yaml
-│ ├── 10-networkpolicy.yaml
-│ └── 11-daemonset.yaml
+│   ├── 00-namespace.yaml
+│   ├── 01-configmap.yaml
+│   ├── 02-secret.yaml
+│   ├── 03-postgres-statefulset.yaml
+│   ├── 04-api-deployment.yaml
+│   ├── 05-dashboard-deployment.yaml
+│   ├── 06-services.yaml
+│   ├── 07-ingress.yaml
+│   ├── 08-hpa-vpa.yaml
+│   ├── 09-rbac.yaml
+│   ├── 10-networkpolicy.yaml
+│   └── 11-daemonset.yaml
 └── README.md
-
-text
-
----
-
-## ⚙️ How to Run
-
-### 1️⃣ Start Minikube
-```bash
+⚙️ How to Run
+1️⃣ Start Minikube
 minikube start --nodes 2
-2️⃣ Build & Push Images (using Docker Hub)
-bash
+2️⃣ Build & Push Images (Docker Hub)
 docker build -t mennaelyamany/banking-api:v2.0 -f app/banking-api/Dockerfile ./app/banking-api
 docker build -t mennaelyamany/banking-dashboard:v2.0 -f app/banking-dashboard/Dockerfile ./app/banking-dashboard
 
 docker push mennaelyamany/banking-api:v2.0
 docker push mennaelyamany/banking-dashboard:v2.0
 3️⃣ Apply Kubernetes Manifests
-bash
 kubectl apply -f k8s/
 4️⃣ Access the Dashboard
-bash
 minikube service -n banking banking-dashboard-service
 🧪 What I Learned (the hard way)
 What I thought	What actually happened
@@ -102,27 +91,18 @@ Security	Secrets, NetworkPolicy, RBAC
 Traffic routing	Ingress + ClusterIP + NodePort
 📸 Screenshots (suggested)
 Dashboard UI in browser
-
 kubectl get pods -n banking -o wide showing 2 nodes
-
 curl http://localhost:3000/api/health response
-
 PostgreSQL data still alive after pod deletion
-
 🚧 Future Improvements
 Add Prometheus + Grafana monitoring
-
 CI/CD pipeline with GitHub Actions
-
 Deploy to cloud (EKS, AKS, or GKE)
-
 Add GitOps with ArgoCD
-
 👩‍💻 Author
+
 Menna Elyamany
 DevOps Engineer | Cloud & Kubernetes Enthusiast
 
 GitHub: mennaelyamany2
-
 LinkedIn: menna-elyamany
-
