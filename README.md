@@ -23,7 +23,7 @@ This project was built to apply real-world DevOps practices like auto-scaling, s
 ## 🛠️ Technologies Used
 
 | Category | Tools |
-|----------|-------|
+|----------|------|
 | Containerization | Docker |
 | Orchestration | Kubernetes (Minikube) |
 | Backend | Node.js, Express |
@@ -35,7 +35,10 @@ This project was built to apply real-world DevOps practices like auto-scaling, s
 | Security | Secrets, ConfigMaps, NetworkPolicy, RBAC |
 
 ---
-📁 Project Structure
+
+## 📁 Project Structure
+
+```
 banking-kubernetes-platform/
 ├── app/
 │   ├── banking-api/
@@ -60,49 +63,86 @@ banking-kubernetes-platform/
 │   ├── 10-networkpolicy.yaml
 │   └── 11-daemonset.yaml
 └── README.md
-⚙️ How to Run
-1️⃣ Start Minikube
+```
+
+---
+
+## ⚙️ How to Run
+
+### 1️⃣ Start Minikube
+```bash
 minikube start --nodes 2
-2️⃣ Build & Push Images (Docker Hub)
+```
+
+### 2️⃣ Build & Push Images (Docker Hub)
+```bash
 docker build -t mennaelyamany/banking-api:v2.0 -f app/banking-api/Dockerfile ./app/banking-api
 docker build -t mennaelyamany/banking-dashboard:v2.0 -f app/banking-dashboard/Dockerfile ./app/banking-dashboard
 
 docker push mennaelyamany/banking-api:v2.0
 docker push mennaelyamany/banking-dashboard:v2.0
-3️⃣ Apply Kubernetes Manifests
+```
+
+### 3️⃣ Apply Kubernetes Manifests
+```bash
 kubectl apply -f k8s/
-4️⃣ Access the Dashboard
+```
+
+### 4️⃣ Access the Dashboard
+```bash
 minikube service -n banking banking-dashboard-service
-🧪 What I Learned (the hard way)
-What I thought	What actually happened
-Running means everything is fine	❌ Nope — probes matter
-PostgreSQL can be a normal Deployment	❌ Data disappears — need StatefulSet
-HPA scales instantly	❌ It depends on metrics and thresholds
-NetworkPolicy is optional	✅ It's critical for real security
-Local registry is easy	✅ Docker Hub is simpler for multi-node
-🔥 Key Features Demonstrated
-Feature	How it's implemented
-Self-healing	Liveness probe restarts failed containers
-Zero downtime	RollingUpdate strategy with maxUnavailable: 0
-Data persistence	PVC + StatefulSet for PostgreSQL
-Auto-scaling	HPA scales API pods from 2 to 5 based on CPU
-Log collection	Fluentd DaemonSet on every node
-Security	Secrets, NetworkPolicy, RBAC
-Traffic routing	Ingress + ClusterIP + NodePort
-📸 Screenshots (suggested)
-Dashboard UI in browser
-kubectl get pods -n banking -o wide showing 2 nodes
-curl http://localhost:3000/api/health response
-PostgreSQL data still alive after pod deletion
-🚧 Future Improvements
-Add Prometheus + Grafana monitoring
-CI/CD pipeline with GitHub Actions
-Deploy to cloud (EKS, AKS, or GKE)
-Add GitOps with ArgoCD
-👩‍💻 Author
+```
 
-Menna Elyamany
-DevOps Engineer | Cloud & Kubernetes Enthusiast
+---
 
-GitHub: mennaelyamany2
-LinkedIn: menna-elyamany
+## 🧪 What I Learned (the hard way)
+
+| What I thought | What actually happened |
+|----------------|------------------------|
+| Running means everything is fine | ❌ Nope — probes matter |
+| PostgreSQL can be a normal Deployment | ❌ Data disappears — need StatefulSet |
+| HPA scales instantly | ❌ It depends on metrics and thresholds |
+| NetworkPolicy is optional | ✅ It's critical for real security |
+| Local registry is easy | ✅ Docker Hub is simpler for multi-node |
+
+---
+
+## 🔥 Key Features Demonstrated
+
+| Feature | How it's implemented |
+|----------|---------------------|
+| Self-healing | Liveness probe restarts failed containers |
+| Zero downtime | RollingUpdate strategy with maxUnavailable: 0 |
+| Data persistence | PVC + StatefulSet for PostgreSQL |
+| Auto-scaling | HPA scales API pods from 2 to 5 based on CPU |
+| Log collection | Fluentd DaemonSet on every node |
+| Security | Secrets, NetworkPolicy, RBAC |
+| Traffic routing | Ingress + ClusterIP + NodePort |
+
+---
+
+## 📸 Screenshots (suggested)
+
+- Dashboard UI in browser  
+- kubectl get pods -n banking -o wide showing 2 nodes  
+- curl http://localhost:3000/api/health response  
+- PostgreSQL data still alive after pod deletion  
+
+---
+
+## 🚧 Future Improvements
+
+- Add Prometheus + Grafana monitoring  
+- CI/CD pipeline with GitHub Actions  
+- Deploy to cloud (EKS, AKS, or GKE)  
+- Add GitOps with ArgoCD  
+
+---
+
+## 👩‍💻 Author
+
+Menna Elyamany  
+DevOps Engineer | Cloud & Kubernetes Enthusiast  
+
+📌 GitHub: https://github.com/mennaelyamany2
+📌 LinkedIn: https://linkedin.com/in/menna-elyamany
