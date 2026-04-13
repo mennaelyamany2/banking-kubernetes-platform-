@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banking-dashboard
+  namespace: banking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: banking-dashboard
+  template:
+    metadata:
+      labels:
+        app: banking-dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: mennaelyamany/banking-dashboard:v2.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
